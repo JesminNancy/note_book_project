@@ -20,5 +20,5 @@ $router->post('/login', 'LoginController@onLogin');
 
 $router->post('/insert', ['middleware'=>'auth', 'uses'=>'NoteBookController@onInsert']);
 $router->post('/select', ['middleware'=>'auth', 'uses'=>'NoteBookController@onSelect']);
-$router->post('/update', ['middleware'=>'auth', 'uses'=>'NoteBookController@onUpdate']);
-$router->post('/delete', ['middleware'=>'auth', 'uses'=>'NoteBookController@onDelete']);
+$router->put('/update', ['middleware'=>'auth', 'uses'=>'NoteBookController@onUpdate']);
+$router->delete('/delete', ['middleware'=>'auth', 'uses'=>'NoteBookController@onDelete']);

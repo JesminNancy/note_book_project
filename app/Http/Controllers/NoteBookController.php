@@ -38,13 +38,48 @@ class NoteBookController extends Controller
         }   
          
     }
-    function onSelect(){
+    function onSelect(Request $request){
     
+        $token= $request->input('access_token');
+        $key= env('TOKEN_KEY');
+        $decoded = JWT::decode($token, new Key($key, 'HS256'));
+        $decoded_array = (array)$decoded;
+        $username= $decoded_array['username'];
+        
+        $result= NoteBookModel::where('username',$username)->get();
+        return $result;
     }
-    function onUpdate(){
-    
+    function onUpdate(Request $request){
+        $id= $request->input('id');
+        $name= $request->input('name'); 
+        $token= $request->input('access_token');
+        $key= env('TOKEN_KEY');
+        $decoded = JWT::decode($token, new Key($key, 'HS256'));
+        $decoded_array = (array)$decoded;
+        $username= $decoded_array['username']; 
+        
+        $result= NoteBookModel::where('id',$id)->update(['name'=>$name]);
+        
+        if($result==true){
+            return "Update Success";
+        }else{
+            return "Update Failed! Try Again";
+        }
     }
-    function onDelete(){
-    
+    function onDelete(Request $request){
+        $id= $request->input('id'); 
+        $token= $request->input('access_token');
+        $key= env('TOKEN_KEY');
+        $decoded = JWT::decode($token, new Key($key, 'HS256'));
+        $decoded_array = (array)$decoded;
+        $username= $decoded_array['username']; 
+        
+        $result= NoteBookModel::where('id',$id)->delete();
+        
+        if($result==true){
+            return "Delete Success";
+        }else{
+            return "Delete Failed! Try Again";
+        }
     }
 }
