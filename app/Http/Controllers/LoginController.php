@@ -9,11 +9,6 @@ use App\Models\RegistrationModel;
 
 class LoginController extends Controller
 {
-
-
-    function tokenTest(){
-        return "Token is Ok";
-    }
     
     
     function onLogin(Request $request){
@@ -30,7 +25,7 @@ class LoginController extends Controller
                 'site' => 'http://demo.com',
                 'username' => $username,
                 'iat' => time(),
-                'exp' => time()+120
+                'exp' => time()+3600
             ];
             
             $jwt = JWT::encode($payload, $key, 'HS256');
